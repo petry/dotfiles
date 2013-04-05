@@ -7,6 +7,19 @@ else
     exit
 fi
 
+export NOSE_REDNOSE=1
+
+HISTSIZE=1000
+HISTFILESIZE=2000
+HISTCONTROL=ignoredups
+# Make some commands not show up in history
+HISTIGNORE="ls:cd:cd -:pwd:exit"
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+
 # Bash functions
 if [ -f ~/.bash_functions ]; then
   source ~/.bash_functions
@@ -40,6 +53,8 @@ fi
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
 
+# Git
+# alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1)/'"
 
 # tmxu
 alias tmux="TERM=xterm-256color tmux"
@@ -48,6 +63,11 @@ alias tmux="TERM=xterm-256color tmux"
 export EDITOR='vim'
 export VISUAL='vim'
 
+# bash prompt
+export HISTCONTROL=ignoredups
+export CLICOLOR=true
+export LSCOLORS=gxfxcxdxbxegedabagacad
+# export PS1='\[\033[01;32m\]\w\[\e[m\]\[\e[1;34m\]$(__bundler_ps1 " [%s]")$(__git_ps1 )\[\e[m\]\[\e[m\]\$ '
 
 # Misc
 export PAGER='less'
@@ -64,67 +84,3 @@ source ~/.bash_profile-${OS}
 
 # PATH
 export PATH=~/.bin:$PATH
-
-export NOSE_REDNOSE=1
-
-HISTSIZE=1000
-HISTFILESIZE=2000
-HISTCONTROL=ignoredups
-# Make some commands not show up in history
-HISTIGNORE="ls:cd:cd -:pwd:exit"
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-##################
-# Code # Color   #
-##################
-#  00  # Off     #
-#  30  # Black   #
-#  31  # Red     #
-#  32  # Green   #
-#  33  # Yellow  #
-#  34  # Blue    #
-#  35  # Magenta #
-#  36  # Cyan    #
-#  37  # White   #
-##################
-
-# Dark colors: \[\033[0;??m\]
-# Light colors: \[\033[1;??m\]
-
-function color {
-    echo "\[\033[$1;$2m\]"
-}
-
-c_prompt=`color 0 33`
-c_path=`color 0 32`
-c_branch=`color 0 31`
-c_tag=`color 1 34`
-c_off=`color 0 00`
-
-function git_branch {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-
-function git_tag {
-    tag=`git describe --exact-match --tags HEAD 2> /dev/null`
-    [ -z "$tag" ] && return 1
-
-    echo " $tag"
-}
-
-PS1="${c_prompt}[\u@\h ${c_path}\W$c_branch\$(git_branch)$c_tag\$(git_tag)${c_prompt}]${c_off} "
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-unset color_prompt force_color_prompt
-unset c_prompt c_path c_branch c_tag c_off
