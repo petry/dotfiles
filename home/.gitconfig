@@ -1,8 +1,12 @@
 [alias]
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  st = status
+  ci = commit
+  co = checkout
+
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset  %Cblue%cn' --abbrev-commit --date=relative
   w = whatchanged
 [github]
-  user = peleteiro
+  user = petry
 [core]
   editor = vim
   pager = less -FRSX
@@ -28,8 +32,8 @@
   changed = green
   untracked = cyan
 [user]
-  name = Jose Peleteiro
-  email = jose@peleteiro.net
+  name = Marcos Daniel Petry
+  email = marcospetry@gmail.com
 [branch "master"]
   remote = origin
   merge = master

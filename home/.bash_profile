@@ -7,6 +7,19 @@ else
     exit
 fi
 
+export NOSE_REDNOSE=1
+
+HISTSIZE=1000
+HISTFILESIZE=2000
+HISTCONTROL=ignoredups
+# Make some commands not show up in history
+HISTIGNORE="ls:cd:cd -:pwd:exit"
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+
 # Bash functions
 if [ -f ~/.bash_functions ]; then
   source ~/.bash_functions
@@ -41,7 +54,7 @@ fi
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
 
 # Git
-alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1)/'"
+# alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1)/'"
 
 # tmxu
 alias tmux="TERM=xterm-256color tmux"
@@ -54,7 +67,7 @@ export VISUAL='vim'
 export HISTCONTROL=ignoredups
 export CLICOLOR=true
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export PS1='\[\033[01;32m\]\w\[\e[m\]\[\e[1;34m\]$(__bundler_ps1 " [%s]")$(__git_ps1 )\[\e[m\]\[\e[m\]\$ '
+# export PS1='\[\033[01;32m\]\w\[\e[m\]\[\e[1;34m\]$(__bundler_ps1 " [%s]")$(__git_ps1 )\[\e[m\]\[\e[m\]\$ '
 
 # Misc
 export PAGER='less'
@@ -71,3 +84,11 @@ source ~/.bash_profile-${OS}
 
 # PATH
 export PATH=~/.bin:$PATH
+export PATH=/usr/local/bin:$PATH
+
+function _update_ps1() {
+   export PS1="$(/Users/petry/projects/other/powerline-shell/powerline-shell.py $?)"
+ }
+export PROMPT_COMMAND="_update_ps1"
+
+
