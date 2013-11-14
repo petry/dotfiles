@@ -2,6 +2,7 @@
 
 # virtualenv
 export WORKON_HOME=$HOME/.virtualenv
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
 
 # npm setup

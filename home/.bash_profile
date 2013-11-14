@@ -54,7 +54,7 @@ fi
 [[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
 
 # Git
-# alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1)/'"
+alias __git_ps1="git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/[\1]/'"
 
 # tmxu
 alias tmux="TERM=xterm-256color tmux"
@@ -67,7 +67,7 @@ export VISUAL='vim'
 export HISTCONTROL=ignoredups
 export CLICOLOR=true
 export LSCOLORS=gxfxcxdxbxegedabagacad
-# export PS1='\[\033[01;32m\]\w\[\e[m\]\[\e[1;34m\]$(__bundler_ps1 " [%s]")$(__git_ps1 )\[\e[m\]\[\e[m\]\$ '
+export PS1='\[\033[00;32m\]\W\[\e[m\]\[\e[0;34m\]$(__bundler_ps1 " [%s]")$(__git_ps1 )\[\e[m\]\[\e[m\]\$ '
 
 # Misc
 export PAGER='less'
@@ -84,3 +84,4 @@ source ~/.bash_profile-${OS}
 
 # PATH
 export PATH=~/.bin:$PATH
+export PATH=/usr/local/bin:$PATH
