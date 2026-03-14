@@ -92,3 +92,4 @@ or=1;38;5;203:\
 *.env=0;38;5;203:"
 
 
+export PATH="$HOME/.local/bin:$PATH"
